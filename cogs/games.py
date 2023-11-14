@@ -1,4 +1,4 @@
-#---Imports---#
+# ---Imports---#
 import discord
 from discord.ext import commands
 from discord import Member
@@ -12,10 +12,10 @@ import datetime
 import asyncio
 
 
-#---Set up Games Class---#
+# ---Set up Games Class---#
 class Games(commands.Cog):
     def __init__(self, bot):
-        self.client = bot
+        self.bot = bot
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -23,7 +23,7 @@ class Games(commands.Cog):
         print("-----------------------------------------------")
 
     ###Coin Flipper Game###
-    @commands.command()
+    @commands.hybrid_command()
     async def coin(self, ctx):
         coin = randint(1, 2)
         if coin == 1:
@@ -35,11 +35,11 @@ class Games(commands.Cog):
         else:
             await ctx.send("It's Tails")
 
-    #---Roulette---#
-    ###Function and Variable Define###
-    def roulette(rNumber):
+    # ---Roulette---#
+    ###Function and Variable Define###=
+    def roulette(rnumber):
         global lose
-        rInput = rNumber
+        rInput = rnumber
         roulette = randint(1, (7 - rInput))
         ###Roulette Logic###
         if roulette == 1:
@@ -49,10 +49,10 @@ class Games(commands.Cog):
             return lose
 
     ###Roulette Game###
-    @commands.command()
-    async def roulette(self, ctx, rAmount):
-        rouletteNumber = int(rAmount)
-        ###Roulette Needs to be Inbetween 1 and 6###
+    @commands.hybrid_command()
+    async def roulette(self, ctx, ramount):
+        rouletteNumber = int(ramount)
+        ###Roulette Needs to be In-between 1 and 6###
         if rouletteNumber > 6:
             await ctx.send("```Usage:\n >roulette (1,6)```")
         elif rouletteNumber < 1:
@@ -71,23 +71,24 @@ class Games(commands.Cog):
         if errorWin == 2:
             await ctx.send("*BANG!* Well that was a bad idea")
 
-    @commands.command()
-    async def remind(self, ctx, tHours, tMinutes, *, tRemind):
+    @commands.hybrid_command()
+    async def remind(self, ctx, thours, tminutes, *, tremind):
 
         timerUser = ctx.author.mention
-        strtHours = str(tHours)
-        strtMinutes = str(tMinutes)
-        inttHours = int(tHours)
-        inttMins = int(tMinutes)
-        await ctx.send("Reminder Set!")
+        strtHours = str(thours)
+        strtMinutes = str(tminutes)
+        inttHours = int(thours)
+        inttMins = int(tminutes)
+        await ctx.send("Timer Set! I will remind you to `" + str(tremind) + "` in `" + strtHours + "hr" + strtMinutes + "min`")
         ###Convert Hours and Minutes into Seconds for async sleep###
         hourSeconds = inttHours * 3600
         minSeconds = inttMins * 60
         secondsFinal = hourSeconds + minSeconds
         intsecondsFinal = int(secondsFinal)
         await asyncio.sleep(secondsFinal)
-        await ctx.send(timerUser + " Your `" + strtHours + "h" + strtMinutes + "m` reminder is going off! " + "Reminder: " + str(tRemind) + "!")
-
+        await ctx.send(
+            timerUser + " Your `" + strtHours + "h" + strtMinutes + "m` timer is going off! " + "Reminder: `" + str(
+                tremind) + "`")
 
     @remind.error
     async def timer_error(error, ctx, self):
@@ -96,6 +97,5 @@ class Games(commands.Cog):
         )
 
 
-
-def setup(bot):
-    bot.add_cog(Games(bot))
+async def setup(bot):
+    await bot.add_cog(Games(bot))
