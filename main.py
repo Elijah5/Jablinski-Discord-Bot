@@ -54,7 +54,7 @@ async def ping(ctx):
 
 
 # ---Logging---#
-handler = logging.FileHandler(filename='Files\discord.log', encoding='utf-8', mode='w')
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 discord.utils.setup_logging(level=logging.INFO, root=False)
 
 
