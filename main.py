@@ -9,19 +9,22 @@ import discord.utils
 from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import has_permissions, Bot
+import fastf1
+from fastf1.ergast import Ergast
+import pandas as pd
 
-# ---Setup Enviroment Variables---#
+#---Setup Enviroment Variables---#
 from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 
-# ---Discord.py Def---#
+#---Discord.py Def---#
 intents = discord.Intents.all()
 intents.message_content = True
 bot: Bot = commands.Bot(command_prefix='>', intents=intents)
 
 
-# ---Print When Ready---#
+#---Print When Ready---#
 @bot.event
 async def on_ready():
     print("-----------------------------------------------")
@@ -36,14 +39,14 @@ async def on_ready():
         print(e)
 
 
-# ---Load The Cogs---#
+#---Load The Cogs---#
 async def load():
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
             await bot.load_extension(f'cogs.{filename[:-3]}')
 
 
-# ---Ping delay test---#
+#---Ping delay test---#
 @bot.hybrid_command()
 async def ping(ctx):
     latency = bot.latency
@@ -53,12 +56,12 @@ async def ping(ctx):
     await ctx.send("Pong! `(" + roundLatency + " ms)`")
 
 
-# ---Logging---#
+#---Logging---#
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 discord.utils.setup_logging(level=logging.INFO, root=False)
 
 
-# ---Startup---#
+#---Startup---#
 async def main():
     await load()
     await bot.start(TOKEN)
