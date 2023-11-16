@@ -1,4 +1,4 @@
-# ---Imports---#
+#---Imports---#
 import json
 import os
 import time
@@ -10,7 +10,7 @@ from discord.ext.commands import has_permissions, Bot
 from dotenv import load_dotenv
 
 
-# ---Set up Admin Class---#
+#---Set up Admin Class---#
 class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -37,11 +37,11 @@ class Admin(commands.Cog):
         ###If Arguments are Correct, Run Purge, and Limit to pAmount###
         else:
             await ctx.send("Purging `" + strmessagesamount + "` Messages!")
-            time.sleep(1)
+            await asyncio.sleep(1)
             await ctx.channel.purge(limit=messagesamount)
             await ctx.send("Deleted `" + strmessagesamount + "` Messages!")
 
-    # ---Ban Timer---#
+    #---Ban Timer---#
     @commands.hybrid_command()
     @has_permissions(administrator=True)
     async def bantimer(self, ctx, member: discord.Member, banhour, banmin, *, banreason):
@@ -65,7 +65,7 @@ class Admin(commands.Cog):
         await ctx.send(
             "Improper syntax or permissions! \n \n ```Usage: \n  >bantimer {user} {hours} {minutes} {reason}```")
 
-    # ---Temp-ban---#
+    #---Temp-ban---#
     @commands.hybrid_command()
     @has_permissions(administrator=True)
     async def tempban(self, ctx, member: discord.Member, bhour, bmin, *, reason):
@@ -97,6 +97,6 @@ class Admin(commands.Cog):
             "Improper syntax or permissions! \n \n ```Usage: \n  >tempban {user} {hours} {minutes} {reason}```")
 
 
-###Setup the cogs###
+#---Setup the cogs---#
 async def setup(bot):
     await bot.add_cog(Admin(bot))
