@@ -93,7 +93,7 @@ class Formula1(commands.Cog):
         def format_date(utc_date):
             # Convert string to a datetime object
             date_object = datetime.strptime(utc_date, "%Y-%m-%d")
-            formatted_date = date_object.strftime('%b %d')
+            formatted_date = date_object.strftime('%a, %b %d')
             return formatted_date
 
         # ---Call the Next Race function---#
