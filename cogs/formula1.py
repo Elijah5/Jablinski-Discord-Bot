@@ -130,6 +130,7 @@ class Formula1(commands.Cog):
             lambda x: format_next_race_time(x) if x == dataFrame.at[nextRaceIndex, ' & Time (PST)**'] else x)
 
         # Make the array start at one to maintain proper Race ordering/numbering
+
         dataFrame.index = dataFrame.index + 1
 
         # Put final dataframe into a discord embed and send it
