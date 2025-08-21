@@ -9,9 +9,6 @@ import discord.utils
 from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import has_permissions, Bot
-import fastf1
-from fastf1.ergast import Ergast
-import pandas as pd
 
 #---Setup Enviroment Variables---#
 from dotenv import load_dotenv
